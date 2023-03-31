@@ -1,5 +1,10 @@
 <?php
 session_start();
+if(!$_SESSION["userLogin"])
+{
+    header('Location: login.php');
+    exit();
+}
 ?>
 <!doctype html>
 
@@ -10,11 +15,10 @@ session_start();
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Las gatas</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"><!--підключення bootstrap (стилів і тд.)-->
-    <link rel="stylesheet" href="/css/style.css"><!--підключення наших стилів-->
-    <link rel="stylesheet" href="/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<?php include($_SERVER["DOCUMENT_ROOT"]."/connect.php"); ?><!--підключення файлу який конектить нас до бд-->
+<?php include($_SERVER["DOCUMENT_ROOT"]."/connect.php"); ?>
 <body style="padding: 0px;background-color: #343a40;">
 
         <div class="Mycontainer">

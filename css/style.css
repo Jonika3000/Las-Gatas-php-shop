@@ -167,18 +167,6 @@ hr {
     color: #ff7676
 }
 
-.comment-ratings i {
-    color: #f6d151
-}
-
-.followers {
-    font-size: 9px;
-    color: #d6d4d4
-}
-
-.store-image {
-    width: 42px
-}
 
 .dot {
     height: 10px;
@@ -196,63 +184,6 @@ hr {
 .my-color {
     margin-top: 10px;
     margin-bottom: 10px
-}
-
-label.radio {
-    cursor: pointer
-}
-
-label.radio input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    visibility: hidden;
-    pointer-events: none
-}
-
-label.radio span {
-    border: 2px solid #8f37aa;
-    display: inline-block;
-    color: #8f37aa;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    text-transform: uppercase;
-    transition: 0.5s all
-}
-
-label.radio .red {
-    background-color: red;
-    border-color: red
-}
-
-label.radio .blue {
-    background-color: blue;
-    border-color: blue
-}
-
-label.radio .green {
-    background-color: green;
-    border-color: green
-}
-
-label.radio .orange {
-    background-color: orange;
-    border-color: orange
-}
-
-label.radio input:checked+span {
-    color: #fff;
-    position: relative
-}
-
-label.radio input:checked+span::before {
-    opacity: 1;
-    content: '\2713';
-    position: absolute;
-    font-size: 13px;
-    font-weight: bold;
-    left: 4px
 }
 
 .card-body {

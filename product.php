@@ -1,6 +1,11 @@
 <?php
-include($_SERVER["DOCUMENT_ROOT"] . "/connect.php");
 session_start();
+if(!$_SESSION["userLogin"])
+{
+    header('Location: login.php');
+    exit();
+}
+include($_SERVER["DOCUMENT_ROOT"] . "/connect.php");
 $idProduct=$_GET["id"];
 if($_SERVER["REQUEST_METHOD"]=="GET") {
     $sql = "SELECT * FROM products WHERE id =:id";
@@ -20,9 +25,8 @@ if($_SERVER["REQUEST_METHOD"]=="GET") {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Las gatas</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"><!--підключення bootstrap (стилів і тд.)-->
-    <link rel="stylesheet" href="/css/style.css"><!--підключення наших стилів-->
-    <link rel="stylesheet" href="/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <?php include($_SERVER["DOCUMENT_ROOT"]."/connect.php"); ?><!--підключення файлу який конектить нас до бд-->
 <body style="padding: 0px;background-color: #343a40;">
@@ -47,8 +51,8 @@ if($_SERVER["REQUEST_METHOD"]=="GET") {
                             <ul id="lightSlider" style="height: 100%;width: 100%;">
                                 <?php foreach ($ImagesProduct as $row) : ?>
                                 <?php $imgUrl = $row["urlImage"]; ?>
-                                 <li data-thumb="<?php echo $imgUrl; ?>" style="height: 330px;width: 330px;">
-                                    <img src="<?php echo $imgUrl; ?>" style="object-fit:cover;height: 100%;width: 100%;" />
+                                 <li data-thumb="<?php echo $imgUrl; ?>" style="height: 320px;width: 320px;">
+                                    <img src="<?php echo $imgUrl; ?>" style="object-fit:contain;height: 100%;width: 100%;" />
                                 </li>
                                 <?php endforeach; ?>
                             </ul>
@@ -58,7 +62,8 @@ if($_SERVER["REQUEST_METHOD"]=="GET") {
                 </div>
                 <div class="col-md-7">
                     <div class="card" style="background-color: #212529;color: white; ">
-                        <div class="about"> <span class="font-weight-bold"><?php echo $nameP; ?></span>
+                        <div class="about">
+                            <span class="font-weight-bold"><?php echo $nameP; ?></span>
                             <h4 class="font-weight-bold"><?php echo $priceP; ?></h4>
                         </div>
                         <div class="buttons"> <button class="btn btn-outline-warning btn-long cart">Add to Cart</button>

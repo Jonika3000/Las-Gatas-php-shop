@@ -25,9 +25,17 @@ if (!empty($login) && !empty($password)) {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $_SESSION["idUser"] = $result['id'];
         $_SESSION["userLogin"] = $login;
-        $_SESSION['valid'] = true;
-        $_SESSION['timeout'] = time();
-        header('Location: index.php');
+        if($_SESSION["userLogin"] === "admin")
+        {
+            $_SESSION["isAdmin"] = "true";
+            header('Location: indexAdmin.php');
+        }
+        else
+            {
+                $_SESSION["isAdmin"] = "false";
+                header('Location: index.php');
+            }
+
         exit();
     }
     else {

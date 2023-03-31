@@ -7,14 +7,14 @@ if(!$_SESSION["userLogin"])
 ?>
 <div class="main position-fixed" style="width: 280px" >
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="height: 100vh">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <a href="/indexAdmin.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <img class="bi me-2" style="width: 30px;height: 30px" src="https://cdn.discordapp.com/attachments/1008702280633163836/1089994449800667168/icons8_cat_96px_1.png"/>
             <span class="fs-4">Las gatas</span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="index.php" class="nav-link text-white" id="HomePageid"  aria-current="page">
+                <a href="indexAdmin.php" class="nav-link text-white" id="HomePageid"  aria-current="page">
                     <img style="width: 30px;height: 30px" src="https://cdn.discordapp.com/attachments/1008702280633163836/1089992366179491860/icons8_home_480px_1.png"/>
                     Home
                 </a>
@@ -57,10 +57,16 @@ if(!$_SESSION["userLogin"])
                 echo " <strong>" . $_SESSION["userLogin"] . "</strong>";?>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                <li><a class="dropdown-item" href="/addProduct.php">New product</a></li>
+                <li><a class="dropdown-item" href="/addCategory.php">New category</a></li>
+                <li><a class="dropdown-item" href="/addImageProduct.php">New product image</a></li>
                 <li><a class="dropdown-item" href="#">Shopping cart</a></li>
+                <li><a class="dropdown-item" href="/deleteProduct.php">Delete product</a></li>
+                <li><a class="dropdown-item" href="/deleteImageProduct.php">Delete product image</a></li>
+                <li><a class="dropdown-item" href="/deleteCategory.php">Delete category</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="/signOut.php"  >Sign out</a></li>
+                <li><a class="dropdown-item" href="/login.php">Sign out</a></li>
             </ul>
         </div>
         <?php
@@ -79,20 +85,21 @@ if(!$_SESSION["userLogin"])
                   }
                  </script>';
         }
-         else{
-             echo ' <script>
+        else{
+            echo ' <script>
                 change();
                function change()
                {
                   
                           btnSelect = document.getElementById("HomePageid");
-                          btnSelect.classList.add("active"); 
+                          btnSelect.classList.add("active");
+                    
             }
  
                </script>';
-         }
+        }
         ?>
-      
+
     </div>
 </div>
 <script>
@@ -101,12 +108,12 @@ if(!$_SESSION["userLogin"])
         for (var i = 0; i < boxes.length; i++) {
             boxes[i].classList.remove("active");
         }
-    }
-    function changeActive(element) {
-        var boxes = document.getElementsByClassName("nav-link");
-        for (var i = 0; i < boxes.length; i++) {
-            boxes[i].classList.remove("active");
+
+        function changeActive(element) {
+            var boxes = document.getElementsByClassName("nav-link");
+            for (var i = 0; i < boxes.length; i++) {
+                boxes[i].classList.remove("active");
+            }
+            element.classList.add("active");
         }
-        element.classList.add("active");
-    }
 </script>

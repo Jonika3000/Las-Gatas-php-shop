@@ -1,4 +1,3 @@
-<?php include($_SERVER["DOCUMENT_ROOT"] . "/modal.php"); ?>
 <?php
 include($_SERVER["DOCUMENT_ROOT"] . "/connect.php");
 if(isset($_POST['addBtn'])) {
