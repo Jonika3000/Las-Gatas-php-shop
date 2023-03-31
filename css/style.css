@@ -147,27 +147,6 @@ hr {
     background-color: #e86464;
     border-color: #e86464
 }
-
-.buttons .wishlist {
-    background-color: #212529;
-    border-color: #ff7676
-}
-
-.buttons .wishlist:hover {
-    background-color: #e86464;
-    border-color: #e86464;
-    color: #fff
-}
-
-.buttons .wishlist:hover i {
-    color: #fff
-}
-
-.buttons .wishlist i {
-    color: #ff7676
-}
-
-
 .dot {
     height: 10px;
     width: 10px;

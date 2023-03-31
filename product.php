@@ -64,12 +64,11 @@ if($_SERVER["REQUEST_METHOD"]=="GET") {
                     <div class="card" style="background-color: #212529;color: white; ">
                         <div class="about">
                             <span class="font-weight-bold"><?php echo $nameP; ?></span>
-                            <h4 class="font-weight-bold"><?php echo $priceP; ?></h4>
+                            <h4 class="font-weight-bold"><?php echo $priceP; ?> $</h4>
                         </div>
                         <div class="buttons"> <button class="btn btn-outline-warning btn-long cart">Add to Cart</button>
                             <button class="btn btn-warning btn-long buy">Buy it Now</button>
-                            <button class="btn btn-light wishlist">
-                                <i class="fa fa-heart"></i> </button> </div>
+
                         <hr>
                         <div class="product-description">
                             <div class="d-flex flex-row align-items-center">

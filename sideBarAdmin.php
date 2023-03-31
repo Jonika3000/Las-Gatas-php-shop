@@ -14,7 +14,7 @@ if(!$_SESSION["userLogin"])
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="indexAdmin.php" class="nav-link text-white" id="HomePageid"  aria-current="page">
+                <a href="indexAdmin.php" class="nav-link text-white" id="HomePageid" aria-current="page">
                     <img style="width: 30px;height: 30px" src="https://cdn.discordapp.com/attachments/1008702280633163836/1089992366179491860/icons8_home_480px_1.png"/>
                     Home
                 </a>
