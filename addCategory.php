@@ -11,13 +11,22 @@ if( $_SESSION["isAdmin"] === "false")
     exit();
 }
 include($_SERVER["DOCUMENT_ROOT"] . "/connect.php");
-if (isset($_POST['AddBtn'])) {
-    $stmt = $dbh->prepare("INSERT INTO tbl_categories (name, image) VALUES (:name, :image)");
-    $stmt->bindParam(':name', $_POST['name']);
-    $stmt->bindParam(':image', $_POST['image']);
-    $stmt->execute();
 
+
+if (isset($_POST['AddBtn'])) {
+    $target_dir = "Images/";
+    $imageFileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"],PATHINFO_EXTENSION));
+    $tmpNameFile = uniqid() . "." . $imageFileType;
+    $target_file = $target_dir . $tmpNameFile;
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        $stmt = $dbh->prepare("INSERT INTO `tbl_categories` (`name`, `image`) VALUES (:name,:img);");
+        $stmt->bindParam(':img', $tmpNameFile);
+        $stmt->bindParam(':name', $_POST['name']);
+        $stmt->execute();
+    }
 }
+
+
 
 ?>
 <!doctype html>
@@ -41,14 +50,14 @@ if (isset($_POST['AddBtn'])) {
     <div class="Mycontent" style="color: white">
         <div class="container">
             <h1 style="color: white">Add Category</h1>
-            <form method="post" >
+            <form  method="post" enctype="multipart/form-data" >
                 <div class="form-group">
                     <label for="name" style="color: white">Name:</label>
                     <input type="text" class="form-control" name="name" required>
                 </div>
-                <div class="form-group">
-                    <label for="price" style="color: white">Image: (url)</label>
-                    <input type="url" class="form-control" name="image" required>
+                <div class="col-md-2">
+                    <label for="fileToUpload" class="form-label">Image:</label>
+                    <input  class="form-control" type="file" name="fileToUpload" id="fileToUpload" style="width: 300px;">
                 </div>
                 <button type="submit" name="AddBtn" class="btn btn-primary" style="margin-top: 15px;">Add Category</button>
             </form>
@@ -56,7 +65,6 @@ if (isset($_POST['AddBtn'])) {
 
     </div>
 </div>
-
 
 <script src="/js/bootstrap.bundle.min.js"  ></script>
 </body>

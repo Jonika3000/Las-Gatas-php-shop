@@ -18,12 +18,22 @@ if(isset($_POST['DeleteBtn'])) {
     if ($result->rowCount() > 0) {
         while($row = $result->fetch_assoc()) {
             $product_id = $row['id'];
+            $sql3 = "SELECT urlImage
+                        FROM imagesproduct 
+                         WHERE idProduct  = $product_id";
+            $ImagesProduct = $dbh->query($sql3)->fetch();
+            unlink("Images/".$ImagesProduct['urlImage']);
             $sql = "DELETE FROM imagesproduct WHERE idProduct  = $product_id";
             $dbh->query($sql);
         }
         $sql = "DELETE FROM products WHERE idCategory = $id";
         $dbh->query($sql);
     }
+    $sql3 = "SELECT image
+                        FROM tbl_categories 
+                         WHERE id = $id";
+    $ImagesProduct = $dbh->query($sql3)->fetch();
+    unlink("Images/".$ImagesProduct['urlImage']);
     $sql = "DELETE FROM tbl_categories WHERE id = $id";
     $dbh->query($sql);
 }

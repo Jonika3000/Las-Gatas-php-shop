@@ -55,7 +55,7 @@ if($_SERVER["REQUEST_METHOD"]=="GET") {
                         <div class="product-wrapper mb-45 text-center">
                         <div class="product-img">
                             <a href="<?php echo "product.php/?id=".$idProduct; ?>"" data-abc="true">
-                                <img src="<?php echo $image; ?>" style="max-width:100%;height: 250px; object-fit: cover" alt="#">
+                                <img src="/Images/<?php echo $image; ?>" style="max-width:100%;height: 250px; object-fit: cover" alt="#">
                             </a>
                             <span class="text-center" style="background-color: #212529;color: white">
                       <?php echo $price; ?>$

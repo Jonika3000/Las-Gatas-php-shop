@@ -12,10 +12,20 @@ if( $_SESSION["isAdmin"] === "false")
 }
 include($_SERVER["DOCUMENT_ROOT"] . "/connect.php");
 if (isset($_POST['AddBtn'])) {
-    $stmt = $dbh->prepare("INSERT INTO imagesproduct (urlImage, idProduct) VALUES (:name, :idProduct)");
-    $stmt->bindParam(':name', $_POST['url']);
-    $stmt->bindParam(':idProduct', $_POST['idProduct']);
-    $stmt->execute();
+
+    $images = $_POST["images"];
+    foreach ($images as $base64) {
+        list(, $content) = explode(',', $base64);
+        $bytes = base64_decode($content);
+        $target_dir = $_SERVER["DOCUMENT_ROOT"] . "/Images/";
+        $fileName = uniqid() . ".png";
+        $fileSave = $target_dir . $fileName;
+        file_put_contents($fileSave, $bytes);
+        $stmt = $dbh->prepare("INSERT INTO `imagesproduct` (`urlImage`, `idProduct`) VALUES (:img, :idProduct);");
+        $stmt->bindParam(':img', $fileName);
+        $stmt->bindParam(':idProduct', $_POST['idProduct']);
+        $stmt->execute();
+    }
 }
 
 ?>
@@ -42,8 +52,27 @@ if (isset($_POST['AddBtn'])) {
             <h1 style="color: white">Add Product Image</h1>
             <form method="post" >
                 <div class="form-group">
-                    <label for="name" style="color: white">URL Image:</label>
-                    <input type="text" class="form-control" name="url" required>
+                    <div class="mb-3">
+                        <div class="row" id="listImages">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="image" class="form-label">
+                                <img src="/Images/upload.png"
+                                     style="cursor: pointer"
+                                     alt="фото категорії"
+                                     id="selectImage"
+                                     width="50"
+                                     height="50"
+                                >
+                            </label>
+                            <input type="file"
+                                   class="d-none"
+                                   id="image">
+                        </div>
+                        <div class="invalid-feedback">
+                            Вкажіть шлях до фото товару
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="idCategory" style="color: white">Product:</label>
@@ -63,8 +92,35 @@ if (isset($_POST['AddBtn'])) {
 
     </div>
 </div>
+<script>
+    window.addEventListener("load", (event) => {
+        const image = document.getElementById("image");
+        image.onchange = (e) => {
+            const file = e.target.files[0];
+            const fr = new FileReader();
+            fr.addEventListener("load", () => {
+                const base64 = fr.result;
+                const data = `
+<div class="col-md-2">
+    <img src="${base64}"
+         style="cursor: pointer"
+         alt="product image"
+         width="100%">
+    <input type="hidden"
+           class="d-none"
+           value="${base64}"
+           name="images[]">
+</div>`;
 
+                document.getElementById("listImages").innerHTML += data;
 
+            });
+            fr.readAsDataURL(file);
+
+            image.value = "";
+        }
+    });
+</script>
 <script src="/js/bootstrap.bundle.min.js"  ></script>
 </body>
 </html>

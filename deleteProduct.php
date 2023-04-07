@@ -13,6 +13,11 @@ if( $_SESSION["isAdmin"] === "false")
 include($_SERVER["DOCUMENT_ROOT"] . "/connect.php");
 if(isset($_POST['DeleteBtn'])) {
     $id = $_POST['idProduct'];
+    $sql2 = "SELECT urlImage
+                        FROM imagesproduct 
+                        WHERE `imagesproduct`.`idProduct` = '$id'";
+    $ImagesProduct = $dbh->query($sql2)->fetch();
+    unlink("Images/".$ImagesProduct['urlImage']);
     $sql1 = "DELETE FROM imagesproduct WHERE `imagesproduct`.`idProduct` = '$id'";
     $sql = "DELETE FROM products WHERE `products`.`id` = '$id'";
     $dbh->exec($sql1);

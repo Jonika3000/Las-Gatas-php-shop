@@ -11,16 +11,18 @@ if( $_SESSION["isAdmin"] === "false")
     exit();
 }
 include($_SERVER["DOCUMENT_ROOT"] . "/connect.php");
-if(isset($_POST['DeleteBtn'])) {
-    $id = $_POST['idImage'];
-    $sql = "SELECT urlImage
-                        FROM imagesproduct 
-                        WHERE `imagesproduct`.`id` = '$id'";
-    $ImagesProduct = $dbh->query($sql)->fetch();
-    unlink("Images/".$ImagesProduct['urlImage']);
-    $sql1 = "DELETE FROM imagesproduct WHERE `imagesproduct`.`id` = '$id'";
-    $dbh->exec($sql1);
+if(isset($_POST['product'])) {
+    $productName = $_POST['productN'];
+    $stmt = $dbh->prepare('SELECT id FROM products WHERE name = :name');
+    $stmt->execute(array(':name' => $productName));
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($productName != "Select a product") {
+        header("Location: editProduct.php?id={$row['id']}");
+
+    }
+
 }
+
 ?>
 
 <html lang="en">
@@ -41,28 +43,24 @@ if(isset($_POST['DeleteBtn'])) {
     </div>
     <div class="Mycontent" style="color: white">
         <div class="container">
-            <h1 style="color: white">Delete Product Image</h1>
-            <form method="post" >
+            <h1>Edit Products</h1>
+            <form method="POST"  >
                 <div class="form-group">
-                    <label for="idProduct" style="color: white">Image:</label>
-                    <select class="form-control" name="idImage">
-                        <option value="">Select a image</option>
+                    <select class="form-control" id="select" name="productN"  name="select" >
+                        <option value="">Select a product</option>
                         <?php
-                        $stmt = $dbh->query("SELECT * FROM imagesproduct");
-                        while ($row = $stmt->fetch()) {
-                            echo "<option value=\"" . $row['id'] . "\">" . $row['urlImage'] . "\" id product ->" . $row['idProduct']."</option>";
+                        $stmt = $dbh->query('SELECT * FROM products');
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo '<option value="' . $row['name'] . '">' . $row['name'] . '</option>';
                         }
                         ?>
                     </select>
                 </div>
-                <button type="submit" name="DeleteBtn" class="btn btn-primary" style="margin-top: 15px;">Delete</button>
+                <button type="submit"   name="product" class="btn btn-primary">Edit</button>
             </form>
         </div>
-
     </div>
 </div>
-
-
 <script src="/js/bootstrap.bundle.min.js"  ></script>
 </body>
 </html>

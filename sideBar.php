@@ -29,7 +29,7 @@ if(!$_SESSION["userLogin"])
                 echo '
                                 <li>
                                <a href="http://local.pv121.com/categoryProducts.php?id='.$id.'" class="nav-link text-white" id="'.$id.'">
-                               <img style="width: 30px;height: 30px" src="'.$url.'"/>
+                               <img style="width: 30px;height: 30px" src="/Images/'.$url.'"/>
                                '.$name.'
                                </a>
                                  </li>

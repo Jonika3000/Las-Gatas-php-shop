@@ -51,8 +51,8 @@ if($_SERVER["REQUEST_METHOD"]=="GET") {
                             <ul id="lightSlider" style="height: 100%;width: 100%;">
                                 <?php foreach ($ImagesProduct as $row) : ?>
                                 <?php $imgUrl = $row["urlImage"]; ?>
-                                 <li data-thumb="<?php echo $imgUrl; ?>" style="height: 320px;width: 320px;">
-                                    <img src="<?php echo $imgUrl; ?>" style="object-fit:contain;height: 100%;width: 100%;" />
+                                 <li data-thumb="/Images/<?php echo $imgUrl; ?>" style="height: 320px;width: 320px;">
+                                    <img src="/Images/<?php echo $imgUrl; ?>" style="object-fit:contain;height: 100%;width: 100%;" />
                                 </li>
                                 <?php endforeach; ?>
                             </ul>
